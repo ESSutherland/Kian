@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/stop_resisting.mp3-c58df57c7f4f1de1ebe4e4bc362c6079.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/holiday/stop_resisting.mp3"
+dest_files=[ "res://.import/stop_resisting.mp3-c58df57c7f4f1de1ebe4e4bc362c6079.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

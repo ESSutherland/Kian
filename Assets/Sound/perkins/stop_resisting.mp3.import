@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/stop_resisting.mp3-2bbd3acfd1993dd879b9ee82a2cf523d.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/perkins/stop_resisting.mp3"
+dest_files=[ "res://.import/stop_resisting.mp3-2bbd3acfd1993dd879b9ee82a2cf523d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

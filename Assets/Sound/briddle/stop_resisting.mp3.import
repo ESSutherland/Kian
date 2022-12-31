@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/stop_resisting.mp3-bfd38f2fc2c1bd424de0cd2e8b193d17.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/briddle/stop_resisting.mp3"
+dest_files=[ "res://.import/stop_resisting.mp3-bfd38f2fc2c1bd424de0cd2e8b193d17.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/death_1.mp3-53577cdbadd7873db86a27c235c20b61.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/byson/death_1.mp3"
+dest_files=[ "res://.import/death_1.mp3-53577cdbadd7873db86a27c235c20b61.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

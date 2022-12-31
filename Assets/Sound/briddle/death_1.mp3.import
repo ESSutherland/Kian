@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/death_1.mp3-013e89bdcb28da6682a686b926fa7296.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/briddle/death_1.mp3"
+dest_files=[ "res://.import/death_1.mp3-013e89bdcb28da6682a686b926fa7296.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/stop_resisting.mp3-54be19e4db0f8ab3793daf74d6ea559e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/byson/stop_resisting.mp3"
+dest_files=[ "res://.import/stop_resisting.mp3-54be19e4db0f8ab3793daf74d6ea559e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/handcuff.mp3-ffcf29f82a3b58605aa53558e4b153a4.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/handcuff.mp3"
+dest_files=[ "res://.import/handcuff.mp3-ffcf29f82a3b58605aa53558e4b153a4.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

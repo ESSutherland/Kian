@@ -1,0 +1,315 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://Scenes/Ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Background.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/clounds.png" type="Texture" id=5]
+[ext_resource path="res://Assets/shadow.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Assets/title.png" type="Texture" id=8]
+[ext_resource path="res://Assets/space.png" type="Texture" id=9]
+[ext_resource path="res://Assets/mouse.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sound/Shoot this bitch.ogg" type="AudioStream" id=11]
+[ext_resource path="res://Assets/r.png" type="Texture" id=12]
+[ext_resource path="res://Assets/music_on.png" type="Texture" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47, 822.75 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.933333, 0.337255, 0.337255, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.870588, 0.231373, 0.231373, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.686275, 0.117647, 0.117647, 1 )
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://Assets/joystix monospace.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+size = 32
+font_data = SubResource( 6 )
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="DynamicFontData" id=8]
+font_path = "res://Assets/joystix monospace.ttf"
+
+[sub_resource type="DynamicFont" id=9]
+size = 128
+outline_size = 3
+font_data = SubResource( 8 )
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Ground" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 606 )
+can_spawn = false
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 396, 563 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 119, -247 )
+current = true
+limit_smoothed = true
+drag_margin_v_enabled = true
+offset_v = 0.02
+drag_margin_top = 1.0
+drag_margin_bottom = 1.0
+
+[node name="SpawnArea" type="Area2D" parent="Player"]
+position = Vector2( -423, 57 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/SpawnArea"]
+position = Vector2( -37, -63.25 )
+shape = SubResource( 1 )
+
+[node name="Shadow" type="Sprite" parent="."]
+position = Vector2( 378, 560 )
+scale = Vector2( 4, 1 )
+z_index = 99
+texture = ExtResource( 6 )
+
+[node name="Clouds" type="Sprite" parent="."]
+position = Vector2( 513, 216 )
+scale = Vector2( 17, 12 )
+texture = ExtResource( 5 )
+
+[node name="Background" parent="." instance=ExtResource( 4 )]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="HUD"]
+margin_left = 556.0
+margin_top = 16.0
+margin_right = 671.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 7 )
+text = "9999"
+valign = 1
+
+[node name="Score2" type="Label" parent="HUD"]
+margin_left = 379.0
+margin_top = 16.0
+margin_right = 539.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 7 )
+text = "SCORE:"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="AmmoLabel" type="Label" parent="HUD"]
+margin_left = 769.0
+margin_top = 546.0
+margin_right = 919.0
+margin_bottom = 606.0
+custom_fonts/font = ExtResource( 7 )
+text = "AMMO:"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="Ammo" type="Label" parent="HUD"]
+margin_left = 898.0
+margin_top = 546.0
+margin_right = 950.0
+margin_bottom = 606.0
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="MaxAmmo" type="Label" parent="HUD"]
+margin_left = 933.0
+margin_top = 546.0
+margin_right = 1015.0
+margin_bottom = 606.0
+custom_fonts/font = ExtResource( 7 )
+text = "/0"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="StartScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BGColor" type="ColorRect" parent="StartScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="TitleImage" type="TextureRect" parent="StartScreen"]
+margin_left = 99.0
+margin_top = -23.0
+margin_right = 924.0
+margin_bottom = 416.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="StartButton" type="Button" parent="StartScreen"]
+margin_left = 391.0
+margin_top = 273.0
+margin_right = 637.0
+margin_bottom = 357.0
+custom_fonts/font = ExtResource( 7 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 3 )
+text = "START"
+
+[node name="SpaceImage" type="TextureRect" parent="StartScreen"]
+margin_left = 69.0
+margin_top = 379.0
+margin_right = 256.0
+margin_bottom = 452.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="RImage" type="TextureRect" parent="StartScreen"]
+margin_left = 487.0
+margin_top = 375.0
+margin_right = 542.0
+margin_bottom = 439.0
+texture = ExtResource( 12 )
+expand = true
+
+[node name="MouseImage2" type="TextureRect" parent="StartScreen"]
+margin_left = 831.0
+margin_top = 357.0
+margin_right = 898.0
+margin_bottom = 433.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="SpaceLabel" type="Label" parent="StartScreen"]
+margin_left = 11.0
+margin_top = 429.0
+margin_right = 324.0
+margin_bottom = 594.0
+custom_fonts/font = SubResource( 7 )
+text = "press space to jump over obsticales"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="RLabel" type="Label" parent="StartScreen"]
+margin_left = 351.0
+margin_top = 427.0
+margin_right = 664.0
+margin_bottom = 592.0
+custom_fonts/font = SubResource( 7 )
+text = "press R to reload your gun"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="SpaceLabel2" type="Label" parent="StartScreen"]
+margin_left = 702.0
+margin_top = 433.0
+margin_right = 1015.0
+margin_bottom = 598.0
+custom_fonts/font = SubResource( 7 )
+text = "click lmb to shoot cops in your way"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="MusicButton" type="Button" parent="StartScreen"]
+margin_left = 928.0
+margin_top = 36.0
+margin_right = 991.0
+margin_bottom = 98.0
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+icon = ExtResource( 13 )
+expand_icon = true
+
+[node name="EndScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BGColor" type="ColorRect" parent="EndScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="Busted" type="Label" parent="EndScreen"]
+margin_left = 155.0
+margin_top = 16.0
+margin_right = 880.0
+margin_bottom = 232.0
+custom_colors/font_color = Color( 0.792157, 0.0666667, 0.0666667, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "busted"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="ScoreLabel" type="Label" parent="EndScreen"]
+margin_left = 351.0
+margin_top = 273.0
+margin_right = 531.0
+margin_bottom = 346.0
+custom_fonts/font = ExtResource( 7 )
+text = "Score:"
+align = 2
+valign = 1
+uppercase = true
+
+[node name="Score" type="Label" parent="EndScreen"]
+margin_left = 531.0
+margin_top = 273.0
+margin_right = 651.0
+margin_bottom = 339.0
+custom_fonts/font = ExtResource( 7 )
+text = "9999"
+valign = 1
+uppercase = true
+
+[node name="RestartButton" type="Button" parent="EndScreen"]
+margin_left = 379.0
+margin_top = 357.0
+margin_right = 625.0
+margin_bottom = 441.0
+custom_fonts/font = ExtResource( 7 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 3 )
+text = "RESTART"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -25.0
+
+[connection signal="body_entered" from="Player/SpawnArea" to="." method="_on_SpawnArea_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="StartScreen/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="StartScreen/MusicButton" to="." method="_on_MusicButton_pressed"]
+[connection signal="pressed" from="EndScreen/RestartButton" to="." method="_on_RestartButton_pressed"]

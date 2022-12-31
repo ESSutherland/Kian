@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/going_for_cuffs.mp3-2c339d67267f2b816ef9c561f8813c4c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/byson/going_for_cuffs.mp3"
+dest_files=[ "res://.import/going_for_cuffs.mp3-2c339d67267f2b816ef9c561f8813c4c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

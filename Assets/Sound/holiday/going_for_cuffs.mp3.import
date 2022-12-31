@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/going_for_cuffs.mp3-fc1e6641c7e3140e5e0b65009d686fc5.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/holiday/going_for_cuffs.mp3"
+dest_files=[ "res://.import/going_for_cuffs.mp3-fc1e6641c7e3140e5e0b65009d686fc5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

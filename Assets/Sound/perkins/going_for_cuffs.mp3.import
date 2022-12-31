@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/going_for_cuffs.mp3-1865fe0971f79f6c2a4084e7f9d4eaae.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/perkins/going_for_cuffs.mp3"
+dest_files=[ "res://.import/going_for_cuffs.mp3-1865fe0971f79f6c2a4084e7f9d4eaae.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

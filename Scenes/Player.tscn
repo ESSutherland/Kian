@@ -1,0 +1,106 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Assets/Sound/shotgun.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
+[ext_resource path="res://Assets/kian-Sheet.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sound/empty_gun.wav" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Sound/reload.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Sound/handcuff.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sound/run.wav" type="AudioStream" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 28.5, 105.5 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+} ]
+
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 0.178711, 0.178711, 0.178711, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 1.0
+flag_disable_z = true
+spread = 30.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 10.0
+color_ramp = SubResource( 9 )
+
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
+position = Vector2( 0, -1 )
+z_index = 100
+collision_mask = 6
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.5, -107.5 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -110 )
+scale = Vector2( 10, 10 )
+frames = SubResource( 2 )
+animation = "run"
+
+[node name="Gun" type="Position2D" parent="."]
+position = Vector2( 107, -111 )
+
+[node name="GunSmoke" type="Particles2D" parent="Gun"]
+emitting = false
+amount = 20
+lifetime = 0.4
+one_shot = true
+speed_scale = 3.0
+process_material = SubResource( 7 )
+
+[node name="Timer" type="Timer" parent="Gun"]
+wait_time = 0.4
+one_shot = true
+
+[node name="GunSound" type="AudioStreamPlayer" parent="Gun"]
+stream = ExtResource( 1 )
+volume_db = -10.0
+
+[node name="Empty" type="AudioStreamPlayer" parent="Gun"]
+stream = ExtResource( 4 )
+volume_db = -10.0
+
+[node name="Reload" type="AudioStreamPlayer" parent="Gun"]
+stream = ExtResource( 5 )
+volume_db = -5.0
+
+[node name="Handcuffs" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Running" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -15.0
+
+[connection signal="timeout" from="Gun/Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Shoot this bitch.ogg-f610c7b88f6aa96f6a97f28bf6736431.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sound/Shoot this bitch.ogg"
+dest_files=[ "res://.import/Shoot this bitch.ogg-f610c7b88f6aa96f6a97f28bf6736431.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
