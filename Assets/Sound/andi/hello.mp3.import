@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hello.mp3-d0649ba72dafb0d085b1667d377793d8.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/andi/hello.mp3"
+dest_files=[ "res://.import/hello.mp3-d0649ba72dafb0d085b1667d377793d8.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

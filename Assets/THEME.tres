@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://Assets/joystix monospace.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=64]
+size = 42
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=65]
+bg_color = Color( 0.686275, 0.117647, 0.117647, 1 )
+border_width_bottom = 5
+border_color = Color( 0.554688, 0.0801697, 0.0801697, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=66]
+bg_color = Color( 0.859375, 0.265198, 0.265198, 1 )
+border_width_bottom = 5
+border_color = Color( 0.686275, 0.117647, 0.117647, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=67]
+bg_color = Color( 0.552941, 0.0784314, 0.0784314, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+Button/fonts/font = SubResource( 64 )
+Button/styles/focus = SubResource( 65 )
+Button/styles/hover = SubResource( 66 )
+Button/styles/normal = SubResource( 65 )
+Button/styles/pressed = SubResource( 67 )

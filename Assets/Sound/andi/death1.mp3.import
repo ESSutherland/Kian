@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/death1.mp3-8f9289b088f89b0aa7bf9b41a73e4a2e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/andi/death1.mp3"
+dest_files=[ "res://.import/death1.mp3-8f9289b088f89b0aa7bf9b41a73e4a2e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

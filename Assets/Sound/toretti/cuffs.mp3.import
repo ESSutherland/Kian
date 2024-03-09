@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/cuffs.mp3-ee6540613b4fb09160d394c57e775af4.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/toretti/cuffs.mp3"
+dest_files=[ "res://.import/cuffs.mp3-ee6540613b4fb09160d394c57e775af4.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

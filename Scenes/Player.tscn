@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Sound/shotgun.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Sound/reload.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sound/handcuff.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Sound/run.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/smoke.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 28.5, 105.5 )
@@ -87,20 +88,35 @@ one_shot = true
 [node name="GunSound" type="AudioStreamPlayer" parent="Gun"]
 stream = ExtResource( 1 )
 volume_db = -10.0
+bus = "Effects"
 
 [node name="Empty" type="AudioStreamPlayer" parent="Gun"]
 stream = ExtResource( 4 )
 volume_db = -10.0
+bus = "Effects"
 
 [node name="Reload" type="AudioStreamPlayer" parent="Gun"]
 stream = ExtResource( 5 )
 volume_db = -5.0
+bus = "Effects"
 
-[node name="Handcuffs" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+[node name="GunLight" type="Light2D" parent="Gun"]
+visible = false
+position = Vector2( 9, 3 )
+texture = ExtResource( 8 )
+texture_scale = 3.0
+
+[node name="GunLightTimer" type="Timer" parent="Gun"]
+wait_time = 0.1
 
 [node name="Running" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -15.0
+bus = "Effects"
+
+[node name="Handcuffs" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+bus = "Effects"
 
 [connection signal="timeout" from="Gun/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Gun/GunLightTimer" to="." method="_on_GunLightTimer_timeout"]

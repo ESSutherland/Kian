@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/barricade.png" type="Texture" id=1]
 [ext_resource path="res://Assets/shadow.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Barricade.gd" type="Script" id=3]
 [ext_resource path="res://Assets/barricade-Sheet.png" type="Texture" id=4]
+[ext_resource path="res://Assets/light.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
@@ -22,14 +23,31 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 66, 44 )
+extents = Vector2( 63, 44 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 62, 15.5 )
+extents = Vector2( 127.5, 15.5 )
 
 [node name="Barricade" type="StaticBody2D" groups=["Barricade"]]
+z_index = 100
 collision_layer = 2
 script = ExtResource( 3 )
+
+[node name="RedLight" type="Light2D" parent="."]
+visible = false
+position = Vector2( 43, -93 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 6 )
+color = Color( 0.937255, 0.137255, 0.137255, 1 )
+energy = 0.8
+
+[node name="BlueLight" type="Light2D" parent="."]
+visible = false
+position = Vector2( -38, -106 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 6 )
+color = Color( 0.0705882, 0.180392, 0.894118, 1 )
+energy = 0.8
 
 [node name="Shadow" type="Sprite" parent="."]
 position = Vector2( 24.109, -33.347 )
@@ -40,11 +58,11 @@ texture = ExtResource( 2 )
 position = Vector2( 2, -64 )
 scale = Vector2( 6, 6 )
 frames = SubResource( 5 )
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -2, -44 )
+visible = false
+position = Vector2( 1, -44 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -57,7 +75,7 @@ texture = ExtResource( 1 )
 position = Vector2( 100, 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 52, -5.5 )
+position = Vector2( 110.5, -5.5 )
 shape = SubResource( 2 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

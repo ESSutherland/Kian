@@ -9,6 +9,8 @@ var max_ammo = 8
 var ammo = max_ammo
 
 onready var bullet_scene = preload("res://Scenes/Bullet.tscn")
+onready var score_scene = preload("res://Scenes/ScoreEffect.tscn")
+onready var broken_scene = preload("res://Scenes/Broken.tscn")
 
 func _physics_process(delta):
 	
@@ -30,14 +32,19 @@ func _physics_process(delta):
 	var collision = get_last_slide_collision()
 	
 	if collision != null:
-		if collision.collider.is_in_group("Barricade") or collision.collider.is_in_group("Cop") and PlayerVars.alive:
-			velocity = Vector2.ZERO
-			movement_enabled = false
-			shooting_enabled = false
-			PlayerVars.alive = false
-			$Handcuffs.play()
-			$AnimatedSprite.stop()
-			$Running.stop()
+		if (collision.collider.is_in_group("Barricade") or collision.collider.is_in_group("Cop")) and PlayerVars.alive:
+			if PlayerVars.hasKey:
+				collision.collider.queue_free()
+				var brokenAnim = broken_scene.instance()
+				add_child(brokenAnim)
+			else:
+				shooting_enabled = false
+				velocity = Vector2.ZERO
+				movement_enabled = false
+				PlayerVars.alive = false
+				$Handcuffs.play()
+				$AnimatedSprite.stop()
+				$Running.stop()
 
 	if Input.is_action_just_pressed("shoot") and shooting_enabled:
 		if ammo > 0:
@@ -46,6 +53,8 @@ func _physics_process(delta):
 			var bullet = bullet_scene.instance()
 			bullet.global_position = $Gun.global_position
 			get_parent().call_deferred("add_child", bullet)
+			$Gun/GunLight.show()
+			$Gun/GunLightTimer.start()
 			shooting_enabled = false
 			$Gun/GunSound.play()
 			$Gun/Timer.start()
@@ -54,10 +63,25 @@ func _physics_process(delta):
 			$Gun/Timer.start()
 	
 	if Input.is_action_just_pressed("reload") and shooting_enabled and ammo < max_ammo:
+		PlayerVars.score = max(0, PlayerVars.score - ammo)
+		if ammo > 0:
+			var scoreAnim = score_scene.instance()
+			scoreAnim.init("-"+str(ammo))
+			scoreAnim.makeRed()
+			add_child(scoreAnim)
 		ammo = max_ammo
 		$Gun/Reload.play()
 		$Gun/Timer.start()
 
+func getKey():
+	var scoreAnim = score_scene.instance()
+	scoreAnim.init('+KEY')
+	add_child(scoreAnim)
+
 func _on_Timer_timeout():
 	if PlayerVars.alive:
 		shooting_enabled = true
+
+
+func _on_GunLightTimer_timeout():
+	$Gun/GunLight.hide()

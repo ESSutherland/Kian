@@ -20,6 +20,8 @@ config/icon="res://icon.png"
 [autoload]
 
 PlayerVars="*res://Scenes/PlayerVars.gd"
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+Config="*res://Scenes/Config.gd"
 
 [debug]
 
@@ -27,12 +29,15 @@ settings/fps/force_fps=60
 
 [display]
 
-window/size/resizable=false
 window/vsync/use_vsync=false
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [global]
 
 FPS=false
+physic=false
+color=false
 
 [gui]
 
@@ -62,6 +67,8 @@ reload={
 2d_physics/layer_2="Barricade"
 2d_physics/layer_3="Cops"
 2d_physics/layer_4="Ground"
+2d_physics/layer_5="Bullet"
+2d_physics/layer_6="Civ"
 
 [physics]
 
@@ -69,5 +76,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0.458824, 0.909804, 0.996078, 1 )
+environment/default_clear_color=Color( 0.211765, 0.701961, 0.811765, 1 )
 environment/default_environment="res://default_env.tres"

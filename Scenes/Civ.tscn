@@ -1,0 +1,179 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Assets/hades-sheet.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Civ.gd" type="Script" id=2]
+[ext_resource path="res://Assets/max-sheet.png" type="Texture" id=3]
+[ext_resource path="res://Assets/shadow.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sound/max/death1.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Sound/max/death2.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sound/hades/death2.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Sound/hades/death1.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Assets/andi-sheet.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sound/max/hello.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sound/andi/death1.mp3" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sound/andi/death2.mp3" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Sound/andi/hello.mp3" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sound/hades/hello.mp3" type="AudioStream" id=14]
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 40, 112 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 9 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 9 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 9 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=20]
+animations = [ {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
+"loop": true,
+"name": "andi",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "hades",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "max",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=33]
+extents = Vector2( 30.5, 114 )
+
+[node name="Civ" type="StaticBody2D" groups=["Shootable"]]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2, -115 )
+shape = SubResource( 19 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -65, -60 )
+scale = Vector2( 10, 10 )
+frames = SubResource( 20 )
+animation = "andi"
+frame = 3
+playing = true
+centered = false
+offset = Vector2( -9, -21 )
+
+[node name="Shadow" type="Sprite" parent="."]
+position = Vector2( -3, -9 )
+scale = Vector2( 4, 1 )
+texture = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="DeadTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Max" type="Node2D" parent="."]
+
+[node name="Death1" type="AudioStreamPlayer" parent="Max"]
+stream = ExtResource( 5 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Death2" type="AudioStreamPlayer" parent="Max"]
+stream = ExtResource( 6 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Hello" type="AudioStreamPlayer" parent="Max"]
+stream = ExtResource( 10 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Hades" type="Node2D" parent="."]
+
+[node name="Death1" type="AudioStreamPlayer" parent="Hades"]
+stream = ExtResource( 8 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Death2" type="AudioStreamPlayer" parent="Hades"]
+stream = ExtResource( 7 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Hello" type="AudioStreamPlayer" parent="Hades"]
+stream = ExtResource( 14 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Andi" type="Node2D" parent="."]
+
+[node name="Death1" type="AudioStreamPlayer" parent="Andi"]
+stream = ExtResource( 11 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Death2" type="AudioStreamPlayer" parent="Andi"]
+stream = ExtResource( 12 )
+volume_db = 5.0
+bus = "Effects"
+
+[node name="Hello" type="AudioStreamPlayer" parent="Andi"]
+stream = ExtResource( 13 )
+bus = "Effects"
+
+[node name="WarnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WarnArea"]
+position = Vector2( 29.5, -113 )
+shape = SubResource( 33 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
+[connection signal="body_entered" from="WarnArea" to="." method="_on_WarnArea_body_entered"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/resist.mp3-28e88131c8eb0b840fa333babfb4968c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sound/toretti/resist.mp3"
+dest_files=[ "res://.import/resist.mp3-28e88131c8eb0b840fa333babfb4968c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

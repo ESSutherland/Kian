@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://Scenes/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,21 +12,46 @@
 [ext_resource path="res://Assets/mouse.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Sound/Shoot this bitch.ogg" type="AudioStream" id=11]
 [ext_resource path="res://Assets/r.png" type="Texture" id=12]
-[ext_resource path="res://Assets/music_on.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/MasterSlider.gd" type="Script" id=13]
+[ext_resource path="res://Assets/grabber_default.png" type="Texture" id=14]
+[ext_resource path="res://Assets/grabber_active.png" type="Texture" id=15]
+[ext_resource path="res://Scenes/MusicSlider.gd" type="Script" id=16]
+[ext_resource path="res://Assets/slider.png" type="Texture" id=17]
+[ext_resource path="res://Assets/slider_filled.png" type="Texture" id=18]
+[ext_resource path="res://Scenes/EffectsSlider.gd" type="Script" id=19]
+[ext_resource path="res://Scenes/LeaderBoard.gd" type="Script" id=20]
+[ext_resource path="res://Scenes/PlayerNameScreen.gd" type="Script" id=21]
+[ext_resource path="res://Assets/kian-Sheet.png" type="Texture" id=22]
+[ext_resource path="res://Assets/joystix monospace.ttf" type="DynamicFontData" id=23]
+[ext_resource path="res://Scenes/CharactersScreen.gd" type="Script" id=24]
+[ext_resource path="res://Assets/toretti-sheet.png" type="Texture" id=25]
+[ext_resource path="res://Assets/holiday-Sheet.png" type="Texture" id=26]
+[ext_resource path="res://Assets/byosn-Sheet.png" type="Texture" id=27]
+[ext_resource path="res://Assets/perkins-Sheet.png" type="Texture" id=28]
+[ext_resource path="res://Assets/briddle-Sheet.png" type="Texture" id=29]
+[ext_resource path="res://Assets/andi-sheet.png" type="Texture" id=30]
+[ext_resource path="res://Assets/max-sheet.png" type="Texture" id=31]
+[ext_resource path="res://Assets/hades-sheet.png" type="Texture" id=32]
+[ext_resource path="res://Assets/peach-sheet.png" type="Texture" id=33]
+[ext_resource path="res://Assets/THEME.tres" type="Theme" id=34]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 47, 822.75 )
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.933333, 0.337255, 0.337255, 1 )
+[sub_resource type="StyleBoxFlat" id=18]
+bg_color = Color( 0.556863, 0.101961, 0.101961, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.870588, 0.231373, 0.231373, 1 )
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 64, 16 )
 
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.686275, 0.117647, 0.117647, 1 )
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 64, 16 )
 
 [sub_resource type="DynamicFontData" id=6]
 font_path = "res://Assets/joystix monospace.ttf"
@@ -35,16 +60,6 @@ font_path = "res://Assets/joystix monospace.ttf"
 size = 32
 font_data = SubResource( 6 )
 
-[sub_resource type="StyleBoxEmpty" id=10]
-
-[sub_resource type="StyleBoxEmpty" id=11]
-
-[sub_resource type="StyleBoxEmpty" id=12]
-
-[sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="StyleBoxEmpty" id=14]
-
 [sub_resource type="DynamicFontData" id=8]
 font_path = "res://Assets/joystix monospace.ttf"
 
@@ -52,6 +67,256 @@ font_path = "res://Assets/joystix monospace.ttf"
 size = 128
 outline_size = 3
 font_data = SubResource( 8 )
+
+[sub_resource type="Shader" id=26]
+code = "shader_type canvas_item;
+
+uniform vec4 line_color : hint_color = vec4(1.0);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
+const vec2 OFFSETS[8] = {
+	vec2(-1, -1), vec2(-1, 0), vec2(-1, 1), vec2(0, -1), vec2(0, 1), 
+	vec2(1, -1), vec2(1, 0), vec2(1, 1)
+};
+
+void fragment() {
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	float outline = 0.0;
+	
+	for (int i = 0; i < OFFSETS.length(); i++) {
+		outline += texture(TEXTURE, UV + size * OFFSETS[i]).a;
+	}
+	outline = min(outline, 1.0);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=27]
+shader = SubResource( 26 )
+shader_param/line_color = Color( 1, 1, 1, 1 )
+shader_param/line_thickness = 1.0
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 30 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 30 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 30 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 30 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 29 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 29 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 29 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 27 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 27 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 27 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 27 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 32 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 32 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 32 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 32 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 26 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 26 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 26 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 26 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 22 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 22 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 22 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 22 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 31 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 31 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 31 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 33 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 33 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 33 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 33 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 28 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 28 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 28 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 28 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 25 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 25 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 25 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 25 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=19]
+animations = [ {
+"frames": [ SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "andi",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
+"loop": true,
+"name": "briddle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
+"loop": true,
+"name": "byson",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ) ],
+"loop": true,
+"name": "hades",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
+"loop": true,
+"name": "holiday",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "kian",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
+"loop": true,
+"name": "max",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ) ],
+"loop": true,
+"name": "peach",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
+"loop": true,
+"name": "perkins",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ) ],
+"loop": true,
+"name": "toretti",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=24]
+size = 50
+font_data = ExtResource( 23 )
+
+[sub_resource type="DynamicFont" id=25]
+size = 32
+font_data = ExtResource( 23 )
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 3 )
@@ -149,6 +414,44 @@ uppercase = true
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="PlayerNameScreen" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource( 21 )
+
+[node name="BGColor" type="ColorRect" parent="PlayerNameScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="Label" type="Label" parent="PlayerNameScreen"]
+margin_left = 236.0
+margin_top = 116.0
+margin_right = 796.0
+margin_bottom = 218.0
+custom_fonts/font = ExtResource( 7 )
+text = "ENTER A 3 CHARACTER name for yourself"
+align = 1
+autowrap = true
+
+[node name="PlayerName" type="LineEdit" parent="PlayerNameScreen"]
+margin_left = 337.0
+margin_top = 232.0
+margin_right = 679.0
+margin_bottom = 308.0
+custom_fonts/font = ExtResource( 7 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/normal = SubResource( 18 )
+align = 1
+max_length = 3
+
+[node name="SubmitButton" type="Button" parent="PlayerNameScreen"]
+margin_left = 384.0
+margin_top = 371.0
+margin_right = 630.0
+margin_bottom = 446.0
+theme = ExtResource( 34 )
+text = "SUBMIT"
+
 [node name="StartScreen" type="CanvasLayer" parent="."]
 visible = false
 
@@ -167,89 +470,189 @@ expand = true
 stretch_mode = 6
 
 [node name="StartButton" type="Button" parent="StartScreen"]
-margin_left = 391.0
+margin_left = 266.0
 margin_top = 273.0
-margin_right = 637.0
-margin_bottom = 357.0
-custom_fonts/font = ExtResource( 7 )
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
+margin_right = 512.0
+margin_bottom = 348.0
+theme = ExtResource( 34 )
 text = "START"
 
-[node name="SpaceImage" type="TextureRect" parent="StartScreen"]
-margin_left = 69.0
-margin_top = 379.0
-margin_right = 256.0
-margin_bottom = 452.0
-texture = ExtResource( 9 )
-expand = true
+[node name="OptionsButton" type="Button" parent="StartScreen"]
+margin_left = 535.0
+margin_top = 273.0
+margin_right = 832.0
+margin_bottom = 348.0
+theme = ExtResource( 34 )
+text = "OPTIONS"
 
-[node name="RImage" type="TextureRect" parent="StartScreen"]
-margin_left = 487.0
-margin_top = 375.0
-margin_right = 542.0
-margin_bottom = 439.0
-texture = ExtResource( 12 )
-expand = true
+[node name="HowToPlay" type="Button" parent="StartScreen"]
+margin_left = 102.0
+margin_top = 372.0
+margin_right = 512.0
+margin_bottom = 447.0
+theme = ExtResource( 34 )
+text = "HOW TO PLAY"
 
-[node name="MouseImage2" type="TextureRect" parent="StartScreen"]
-margin_left = 831.0
-margin_top = 357.0
-margin_right = 898.0
+[node name="LeaderboardButton" type="Button" parent="StartScreen"]
+margin_left = 534.0
+margin_top = 371.0
+margin_right = 956.0
+margin_bottom = 446.0
+theme = ExtResource( 34 )
+text = "HIGH SCORES"
+
+[node name="CharactersButton" type="Button" parent="StartScreen"]
+margin_left = 322.0
+margin_top = 468.0
+margin_right = 719.0
+margin_bottom = 543.0
+theme = ExtResource( 34 )
+text = "CHARACTERS"
+
+[node name="OptionsScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BGColor" type="ColorRect" parent="OptionsScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="MenuButton" type="Button" parent="OptionsScreen"]
+margin_left = 391.0
+margin_top = 503.0
+margin_right = 637.0
+margin_bottom = 578.0
+theme = ExtResource( 34 )
+text = "MENU"
+
+[node name="EffectsSlider" type="Control" parent="OptionsScreen"]
+margin_left = 288.0
+margin_top = 346.0
+margin_right = 741.0
 margin_bottom = 433.0
-texture = ExtResource( 10 )
-expand = true
+script = ExtResource( 19 )
 
-[node name="SpaceLabel" type="Label" parent="StartScreen"]
-margin_left = 11.0
-margin_top = 429.0
-margin_right = 324.0
-margin_bottom = 594.0
+[node name="Vol" type="HSlider" parent="OptionsScreen/EffectsSlider"]
+margin_left = 7.0
+margin_top = 59.0
+margin_right = 449.0
+margin_bottom = 77.0
+custom_icons/grabber_highlight = ExtResource( 15 )
+custom_icons/grabber = ExtResource( 14 )
+custom_styles/slider = SubResource( 15 )
+custom_styles/grabber_area_highlight = SubResource( 17 )
+custom_styles/grabber_area = SubResource( 17 )
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label" type="Label" parent="OptionsScreen/EffectsSlider"]
+margin_left = 7.0
+margin_right = 446.0
+margin_bottom = 58.0
 custom_fonts/font = SubResource( 7 )
-text = "press space to jump over obsticales"
+text = "Effects Volume"
 align = 1
 valign = 1
 autowrap = true
 uppercase = true
 
-[node name="RLabel" type="Label" parent="StartScreen"]
-margin_left = 351.0
-margin_top = 427.0
-margin_right = 664.0
-margin_bottom = 592.0
-custom_fonts/font = SubResource( 7 )
-text = "press R to reload your gun"
-align = 1
-valign = 1
-autowrap = true
-uppercase = true
-
-[node name="SpaceLabel2" type="Label" parent="StartScreen"]
-margin_left = 702.0
-margin_top = 433.0
-margin_right = 1015.0
-margin_bottom = 598.0
-custom_fonts/font = SubResource( 7 )
-text = "click lmb to shoot cops in your way"
-align = 1
-valign = 1
-autowrap = true
-uppercase = true
-
-[node name="MusicButton" type="Button" parent="StartScreen"]
-margin_left = 928.0
-margin_top = 36.0
-margin_right = 991.0
+[node name="ValueLabel" type="Label" parent="OptionsScreen/EffectsSlider"]
+margin_left = -94.0
+margin_top = 40.0
 margin_bottom = 98.0
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 11 )
-custom_styles/focus = SubResource( 12 )
-custom_styles/disabled = SubResource( 13 )
-custom_styles/normal = SubResource( 14 )
-icon = ExtResource( 13 )
-expand_icon = true
+custom_fonts/font = SubResource( 7 )
+text = "999"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="MusicSlider" type="Control" parent="OptionsScreen"]
+margin_left = 288.0
+margin_top = 207.0
+margin_right = 741.0
+margin_bottom = 294.0
+script = ExtResource( 16 )
+
+[node name="Vol" type="HSlider" parent="OptionsScreen/MusicSlider"]
+margin_left = 7.0
+margin_top = 59.0
+margin_right = 449.0
+margin_bottom = 77.0
+custom_icons/grabber_highlight = ExtResource( 15 )
+custom_icons/grabber = ExtResource( 14 )
+custom_styles/slider = SubResource( 15 )
+custom_styles/grabber_area_highlight = SubResource( 17 )
+custom_styles/grabber_area = SubResource( 17 )
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label" type="Label" parent="OptionsScreen/MusicSlider"]
+margin_left = 7.0
+margin_right = 446.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 7 )
+text = "Music Volume"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="ValueLabel" type="Label" parent="OptionsScreen/MusicSlider"]
+margin_left = -94.0
+margin_top = 40.0
+margin_bottom = 98.0
+custom_fonts/font = SubResource( 7 )
+text = "999"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="MasterSlider" type="Control" parent="OptionsScreen"]
+margin_left = 288.0
+margin_top = 76.0
+margin_right = 741.0
+margin_bottom = 163.0
+script = ExtResource( 13 )
+
+[node name="Vol" type="HSlider" parent="OptionsScreen/MasterSlider"]
+margin_left = 7.0
+margin_top = 59.0
+margin_right = 449.0
+margin_bottom = 77.0
+custom_icons/grabber_highlight = ExtResource( 15 )
+custom_icons/grabber = ExtResource( 14 )
+custom_styles/slider = SubResource( 15 )
+custom_styles/grabber_area_highlight = SubResource( 17 )
+custom_styles/grabber_area = SubResource( 17 )
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Label" type="Label" parent="OptionsScreen/MasterSlider"]
+margin_left = 7.0
+margin_right = 446.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 7 )
+text = "Master Volume"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="ValueLabel" type="Label" parent="OptionsScreen/MasterSlider"]
+margin_left = -94.0
+margin_top = 40.0
+margin_bottom = 98.0
+custom_fonts/font = SubResource( 7 )
+text = "999"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
 
 [node name="EndScreen" type="CanvasLayer" parent="."]
 visible = false
@@ -266,50 +669,255 @@ margin_right = 880.0
 margin_bottom = 232.0
 custom_colors/font_color = Color( 0.792157, 0.0666667, 0.0666667, 1 )
 custom_fonts/font = SubResource( 9 )
-text = "busted"
+text = "washed"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Sub" type="Label" parent="EndScreen"]
+margin_left = 228.0
+margin_top = 180.0
+margin_right = 782.0
+margin_bottom = 253.0
+custom_fonts/font = ExtResource( 7 )
+text = "you were cuffed"
 align = 1
 valign = 1
 uppercase = true
 
 [node name="ScoreLabel" type="Label" parent="EndScreen"]
-margin_left = 351.0
-margin_top = 273.0
-margin_right = 531.0
-margin_bottom = 346.0
+margin_left = 229.0
+margin_top = 277.0
+margin_right = 783.0
+margin_bottom = 350.0
 custom_fonts/font = ExtResource( 7 )
-text = "Score:"
-align = 2
-valign = 1
-uppercase = true
-
-[node name="Score" type="Label" parent="EndScreen"]
-margin_left = 531.0
-margin_top = 273.0
-margin_right = 651.0
-margin_bottom = 339.0
-custom_fonts/font = ExtResource( 7 )
-text = "9999"
+text = "score:"
+align = 1
 valign = 1
 uppercase = true
 
 [node name="RestartButton" type="Button" parent="EndScreen"]
 margin_left = 379.0
-margin_top = 357.0
+margin_top = 374.0
 margin_right = 625.0
-margin_bottom = 441.0
+margin_bottom = 458.0
+theme = ExtResource( 34 )
 custom_fonts/font = ExtResource( 7 )
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 5 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
-text = "RESTART"
+text = "MENU"
+
+[node name="HowToPlayScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BGColor" type="ColorRect" parent="HowToPlayScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="SpaceImage" type="TextureRect" parent="HowToPlayScreen"]
+margin_left = 69.0
+margin_top = 60.0
+margin_right = 256.0
+margin_bottom = 133.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="RImage" type="TextureRect" parent="HowToPlayScreen"]
+margin_left = 500.0
+margin_top = 60.0
+margin_right = 555.0
+margin_bottom = 124.0
+texture = ExtResource( 12 )
+expand = true
+
+[node name="MouseImage2" type="TextureRect" parent="HowToPlayScreen"]
+margin_left = 838.0
+margin_top = 39.0
+margin_right = 905.0
+margin_bottom = 115.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="SpaceLabel" type="Label" parent="HowToPlayScreen"]
+margin_left = 1.0
+margin_top = 153.0
+margin_right = 314.0
+margin_bottom = 318.0
+custom_fonts/font = SubResource( 7 )
+text = "press space to jump over obstacles"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="RLabel" type="Label" parent="HowToPlayScreen"]
+margin_left = 337.0
+margin_top = 124.0
+margin_right = 704.0
+margin_bottom = 457.0
+custom_fonts/font = SubResource( 7 )
+text = "press R to reload your gun, remaining ammo is removed from your score"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="SpaceLabel2" type="Label" parent="HowToPlayScreen"]
+margin_left = 704.0
+margin_top = 135.0
+margin_right = 1017.0
+margin_bottom = 468.0
+custom_fonts/font = SubResource( 7 )
+text = "click lmb to shoot cops in your way. Be careful of civs and fellow HOA members"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="MenuButton" type="Button" parent="HowToPlayScreen"]
+margin_left = 391.0
+margin_top = 503.0
+margin_right = 637.0
+margin_bottom = 578.0
+theme = ExtResource( 34 )
+text = "MENU"
+
+[node name="LeaderBoardScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BGColor" type="ColorRect" parent="LeaderBoardScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="Label" type="Label" parent="LeaderBoardScreen"]
+margin_left = 342.0
+margin_top = 16.0
+margin_right = 708.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 7 )
+text = "LEADERBOARD"
+align = 1
+autowrap = true
+
+[node name="LeaderBoard" type="VBoxContainer" parent="LeaderBoardScreen"]
+margin_left = 366.0
+margin_top = 78.0
+margin_right = 681.0
+margin_bottom = 583.0
+script = ExtResource( 20 )
+
+[node name="MenuButton" type="Button" parent="LeaderBoardScreen"]
+margin_left = 734.0
+margin_top = 509.0
+margin_right = 980.0
+margin_bottom = 584.0
+theme = ExtResource( 34 )
+text = "MENU"
+
+[node name="ResetLBButton" type="Button" parent="LeaderBoardScreen"]
+visible = false
+margin_left = 39.0
+margin_top = 509.0
+margin_right = 285.0
+margin_bottom = 584.0
+theme = ExtResource( 34 )
+text = "RESET"
+
+[node name="CharactersScreen" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource( 24 )
+
+[node name="BGColor" type="ColorRect" parent="CharactersScreen"]
+margin_right = 1025.0
+margin_bottom = 632.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="Character" type="AnimatedSprite" parent="CharactersScreen"]
+material = SubResource( 27 )
+position = Vector2( 514, 345 )
+scale = Vector2( 10, 10 )
+frames = SubResource( 19 )
+animation = "kian"
+playing = true
+
+[node name="Name" type="Label" parent="CharactersScreen"]
+margin_left = 59.0
+margin_top = 39.0
+margin_right = 979.0
+margin_bottom = 127.0
+custom_fonts/font = SubResource( 24 )
+text = "MAXIMILLIAN ANGEL"
+align = 1
+valign = 1
+
+[node name="Type" type="Label" parent="CharactersScreen"]
+margin_left = 194.0
+margin_top = 92.0
+margin_right = 823.0
+margin_bottom = 180.0
+custom_colors/font_color = Color( 0.223529, 0.431373, 0.913725, 1 )
+custom_fonts/font = SubResource( 25 )
+text = "CIVILIAN"
+align = 1
+valign = 1
+
+[node name="Voice" type="Label" parent="CharactersScreen"]
+margin_left = 206.0
+margin_top = 137.0
+margin_right = 810.0
+margin_bottom = 225.0
+custom_fonts/font = SubResource( 25 )
+align = 1
+valign = 1
+
+[node name="PrevButton" type="Button" parent="CharactersScreen"]
+margin_left = 316.0
+margin_top = 290.0
+margin_right = 386.0
+margin_bottom = 365.0
+theme = ExtResource( 34 )
+text = "<"
+
+[node name="NextButton" type="Button" parent="CharactersScreen"]
+margin_left = 649.0
+margin_top = 290.0
+margin_right = 719.0
+margin_bottom = 365.0
+theme = ExtResource( 34 )
+text = ">"
+
+[node name="MenuButton" type="Button" parent="CharactersScreen"]
+margin_left = 390.0
+margin_top = 494.0
+margin_right = 636.0
+margin_bottom = 569.0
+theme = ExtResource( 34 )
+text = "MENU"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 volume_db = -25.0
+bus = "Music"
 
 [connection signal="body_entered" from="Player/SpawnArea" to="." method="_on_SpawnArea_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="PlayerNameScreen/SubmitButton" to="." method="_on_SubmitButton_pressed"]
 [connection signal="pressed" from="StartScreen/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="pressed" from="StartScreen/MusicButton" to="." method="_on_MusicButton_pressed"]
+[connection signal="pressed" from="StartScreen/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="StartScreen/HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="StartScreen/LeaderboardButton" to="." method="_on_LeaderboardButton_pressed"]
+[connection signal="pressed" from="StartScreen/CharactersButton" to="." method="_on_CharactersButton_pressed"]
+[connection signal="pressed" from="OptionsScreen/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="mouse_exited" from="OptionsScreen/EffectsSlider/Vol" to="OptionsScreen/EffectsSlider" method="_on_Vol_mouse_exited"]
+[connection signal="value_changed" from="OptionsScreen/EffectsSlider/Vol" to="OptionsScreen/EffectsSlider" method="_on_Vol_value_changed"]
+[connection signal="mouse_exited" from="OptionsScreen/MusicSlider/Vol" to="OptionsScreen/MusicSlider" method="_on_Vol_mouse_exited"]
+[connection signal="value_changed" from="OptionsScreen/MusicSlider/Vol" to="OptionsScreen/MusicSlider" method="_on_Vol_value_changed"]
+[connection signal="mouse_exited" from="OptionsScreen/MasterSlider/Vol" to="OptionsScreen/MasterSlider" method="_on_Vol_mouse_exited"]
+[connection signal="value_changed" from="OptionsScreen/MasterSlider/Vol" to="OptionsScreen/MasterSlider" method="_on_Vol_value_changed"]
 [connection signal="pressed" from="EndScreen/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="HowToPlayScreen/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="LeaderBoardScreen/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="LeaderBoardScreen/ResetLBButton" to="." method="_on_ResetLBButton_pressed"]
+[connection signal="pressed" from="CharactersScreen/PrevButton" to="CharactersScreen" method="_on_PrevButton_pressed"]
+[connection signal="pressed" from="CharactersScreen/NextButton" to="CharactersScreen" method="_on_NextButton_pressed"]
+[connection signal="pressed" from="CharactersScreen/MenuButton" to="." method="_on_MenuButton_pressed"]

@@ -28,7 +28,7 @@ texture = ExtResource( 1 )
 expand = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 1.75
 one_shot = true
 autostart = true
 

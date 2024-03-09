@@ -13,7 +13,7 @@ func _physics_process(delta):
 	var collision = get_last_slide_collision()
 	
 	if collision != null:
-		if collision.collider.is_in_group("Cop"):
+		if collision.collider.is_in_group("Shootable"):
 			velocity = Vector2.ZERO
 			collision.collider.dead()
 			$Sprite.hide()
